@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAAA! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="./style/yes_style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="header_text">Juhu! Du machst mich so glüchklich ❤️</h1>
+        
+        <div class="gif_container">
+            <img src="us.gif" alt="Feierndes GIF">
+        </div>
+
+        <div class="message_box">
+            <p>Ich freue mich schon so auf unser Date pookie</p>
+            <p class="subtext">Eine kleine Überraschung gibt es noch 
+</p>
+        </div>
+
+        <div class="button-wrapper">
+            <a href="video.html" class="btn next-btn">So lässt du mich fühlen..</a>
+
+            <a href="index.html" class="back-btn">Nochmal von vorn?</a>
+        </div>
+    </div>
+
+<script>
+    // Konfetti-Feuerwerk beim Laden (bleibt gleich)
+    window.addEventListener('load', () => {
+        confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+        // Ein kleiner Extra-Schuss nach einer Sekunde
+        setTimeout(() => {
+            confetti({ particleCount: 100, spread: 150, origin: { x: 0.2, y: 0.8 } });
+            confetti({ particleCount: 100, spread: 150, origin: { x: 0.8, y: 0.8 } });
+        }, 1000);
+    });
+</script>
+
+<audio autoplay loop>
+    <source src="success_song.mp3" type="audio/mpeg">
+</audio>
+
+</body>
+</html>

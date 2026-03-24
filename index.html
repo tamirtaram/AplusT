@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eine wichtige Frage ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="./style/styles.css">
+</head>
+<body>
+
+    <div id="heartRain" class="heart-rain"></div>
+
+    <div class="container">
+        <h1 class="header_text">Mein Engel, willst du mit mir auf ein Date?</h1>
+
+        <div class="gif_container">
+            <img src="love.gif" alt="Süßes GIF">
+        </div>
+
+        <div class="buttons">
+            <a href="yes.html" class="btn yes" id="yesButton" onclick="confettiClick(event)">Ja! ❤️</a>
+            <button class="btn no" id="noButton">Nein</button>
+        </div>
+    </div>
+
+<script>
+    const noBtn = document.getElementById('noButton');
+    const yesBtn = document.getElementById('yesButton');
+    const heartRain = document.getElementById('heartRain');
+    
+    // --- SOUND-DATEIEN DEFINIEREN ---
+    const noSoundsFiles = ['nein_1.mp3', 'nein_2.mp3', 'nein_3.mp3'];
+    const hoverYesSound = new Audio('ja_hover.mp3');
+    const clickYesSound = new Audio('ja_klick.mp3');
+
+    const messages = ["Nein", "Sicher?", "Echt jetzt?", "Nö!", "Oha..", "Niemals!", "Vielleicht?", "Hoppla!"];
+
+    function moveButton() {
+        // Zufälligen Nein-Sound abspielen
+        const randomFile = noSoundsFiles[Math.floor(Math.random() * noSoundsFiles.length)];
+        const audio = new Audio(randomFile);
+        audio.play().catch(e => {});
+
+        const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = Math.random() * maxX + 'px';
+        noBtn.style.top = Math.random() * maxY + 'px';
+
+        noBtn.innerText = messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    // Herz-Regen Logik
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('falling-heart');
+        heart.innerHTML = '💔';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        heartRain.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+    }
+
+    let rainInterval;
+    noBtn.addEventListener('mouseenter', () => {
+        moveButton();
+        rainInterval = setInterval(createHeart, 150);
+    });
+
+    noBtn.addEventListener('mouseleave', () => {
+        clearInterval(rainInterval);
+    });
+
+    // JA-BUTTON HOVER
+    yesBtn.addEventListener('mouseenter', () => {
+        hoverYesSound.currentTime = 0; 
+        hoverYesSound.play().catch(e => {});
+    });
+
+    // MOBILE TOUCH
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        moveButton();
+    });
+
+    // JA-BUTTON KLICK (Konfetti + Sound + Verzögerung)
+    function confettiClick(event) {
+        event.preventDefault(); // Stoppt die sofortige Weiterleitung
+        
+        clickYesSound.play().catch(e => {});
+
+        confetti({ 
+            particleCount: 180, 
+            spread: 80, 
+            origin: { y: 0.6 },
+            colors: ['#ff4d6d', '#ffffff', '#ffb6c1']
+        });
+
+        // 2,5 Sekunden warten, damit man Sound & Konfetti genießen kann
+        setTimeout(() => {
+            window.location.href = event.target.getAttribute('href');
+        }, 2500);
+    }
+</script>
+
+<audio id="musik" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Autoplay-Versuch für Hintergrundmusik
+window.addEventListener("load", () => {
+  document.getElementById("musik").play().catch(() => {
+    console.log("Musik wartet auf Klick");
+  });
+});
+</script>
+
+</body>
+</html>
